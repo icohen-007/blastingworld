@@ -1,0 +1,24 @@
+# Blasting World — Render Static Site
+# https://nueraeyelabs.com
+
+services:
+  - type: web
+    name: blastingworld
+    runtime: static
+    plan: starter
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: VITE_KIE_API_BASE
+        sync: false
