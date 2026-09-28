@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Blasting World</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@600;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app" class="mode-photo mode-scout">
+      <div id="streetview" class="streetview hidden" aria-label="Street View of target"></div>
+      <div id="aerialview" class="aerialview" aria-label="Aerial view of target"></div>
+
+      <div id="target-plate" class="target-plate">
+        <img id="target-plate-img" alt="Target storefront" />
+      </div>
+
+      <canvas id="game-canvas" class="canvas-passthrough"></canvas>
+
+      <div id="fx-layer" class="fx-layer" aria-hidden="true"></div>
+
+      <div id="weapon-view" class="weapon-view hidden" aria-hidden="true">
+        <img id="weapon-view-img" class="weapon-view-img" alt="" draggable="false" />
+      </div>
+
+      <div id="crosshair" class="optic-sight optic-scout" aria-hidden="false">
+        <span class="optic-ring optic-ring-outer"></span>
+        <span class="optic-ring optic-ring-inner"></span>
+        <span class="optic-dot"></span>
+        <span class="optic-tick optic-tick-n"></span>
+        <span class="optic-tick optic-tick-e"></span>
+        <span class="optic-tick optic-tick-s"></span>
+        <span class="optic-tick optic-tick-w"></span>
+        <span id="optic-lock-badge" class="optic-lock-badge">TARGET</span>
+      </div>
+
+      <div id="view-mode-bar" class="view-mode-bar" role="group" aria-label="Camera view">
+        <button id="view-aerial-btn" type="button" class="view-mode-btn is-active" aria-pressed="true">
+          1 · Aerial
+        </button>
+        <button id="view-street-btn" type="button" class="view-mode-btn" aria-pressed="false" disabled>
+          2 · Street
+        </button>
+      </div>
+
+      <p id="aim-hint" class="aim-hint hidden">Double-click to confirm deploy</p>
+
+      <button
+        id="panel-toggle"
+        type="button"
+        class="panel-toggle"
+        aria-controls="boot-screen"
+        aria-expanded="true"
+        title="Show / hide controls"
+      >
+        <span class="panel-toggle-icon" aria-hidden="true">‹</span>
+        <span class="panel-toggle-label">Controls</span>
+      </button>
+
+      <aside id="boot-screen" class="side-panel" aria-label="Blasting World controls">
+        <div class="side-panel-inner">
+          <header class="side-panel-header">
+            <p class="boot-eyebrow">Target · Fiction VFX</p>
+            <h1 class="brand">Blasting World</h1>
+            <p class="boot-tagline">Aerial: right-click → Street · double right-click → Choose Weapon & fire.</p>
+          </header>
+
+          <ol class="flow-steps" aria-label="Workflow">
+            <li id="step-location" class="flow-step is-active">Location</li>
+            <li id="step-aerial" class="flow-step">Lock Aerial</li>
+            <li id="step-street" class="flow-step">Lock Street</li>
+            <li id="step-fire" class="flow-step">Fire</li>
+            <li id="step-ai" class="flow-step">AI Effects</li>
+          </ol>
+
+          <div id="target-selector" class="target-selector" role="group" aria-label="Target location">
+            <p class="field-label">Address or coordinates</p>
+            <input
+              id="place-input"
+              class="field-input"
+              type="text"
+              spellcheck="false"
+              autocomplete="street-address"
+              placeholder="566 Middle Neck Rd, Great Neck NY  — or 40.80, -73.73"
+              value="566 Middle Neck Rd, Great Neck, NY 11023"
+            />
+            <button id="apply-place-btn" type="button" class="btn-secondary btn-block">
+              Set Location
+            </button>
+            <p id="target-meta" class="target-meta">Set a place, then lock Aerial first.</p>
+          </div>
+
+          <div class="lock-actions">
+            <p class="field-label">Separate locks</p>
+            <button id="lock-aerial-btn" type="button" class="btn-secondary btn-block" disabled>
+              Lock Aerial (or right-click)
+            </button>
+            <button id="lock-street-btn" type="button" class="btn-secondary btn-block" disabled>
+              Lock Street (or right-click)
+            </button>
+            <p id="lock-hint" class="view-mode-hint">
+              Aerial: right-click once → Street View. Double right-click → Choose Your Weapon & fire here.
+            </p>
+          </div>
+
+          <div id="maps-status" class="maps-status" role="status"></div>
+          <p id="ai-damage-status" class="ai-damage-status" role="status"></p>
+
+          <div id="launcher-picker" class="launcher-picker is-disabled" role="radiogroup" aria-label="Select launcher" aria-disabled="true">
+            <p class="field-label">Select launcher</p>
+            <p class="launcher-hint">After locks — pick a tube. Voice: weapon ready. Double-click to confirm deploy.</p>
+            <div class="launcher-grid">
+              <button type="button" class="launcher-card" data-launcher="bazooka" aria-pressed="false" disabled>
+                <img class="launcher-thumb" src="/weapons/bazooka.png" alt="" />
+                <span class="launcher-name">M1 Bazooka</span>
+                <span class="launcher-blurb">Whoosh + thick backblast</span>
+              </button>
+              <button type="button" class="launcher-card" data-launcher="rpg7" aria-pressed="false" disabled>
+                <img class="launcher-thumb" src="/weapons/rpg7.png" alt="" />
+                <span class="launcher-name">RPG-7</span>
+                <span class="launcher-blurb">Crack + black exhaust</span>
+              </button>
+              <button type="button" class="launcher-card" data-launcher="at4" aria-pressed="false" disabled>
+                <img class="launcher-thumb" src="/weapons/at4.png" alt="" />
+                <span class="launcher-name">AT4</span>
+                <span class="launcher-blurb">Thump + smoke wall</span>
+              </button>
+              <button type="button" class="launcher-card" data-launcher="javelin" aria-pressed="false" disabled>
+                <img class="launcher-thumb" src="/weapons/javelin.png" alt="" />
+                <span class="launcher-name">Javelin</span>
+                <span class="launcher-blurb">Soft launch + dual burn</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="shot-drafts" class="shot-drafts">
+            <p class="field-label">
+              Preview plates <span id="draft-count" class="draft-count">(0)</span>
+            </p>
+            <p class="draft-hint">
+              Click to multi-select Aerial + Street angles, then send selected to AI Visual Effects.
+            </p>
+            <div id="draft-list" class="draft-list" role="listbox" aria-multiselectable="true" aria-label="Preview plates"></div>
+            <button id="send-kie-btn" type="button" class="btn-primary btn-block" disabled>
+              Send Selected to AI Visual Effects
+            </button>
+            <p id="kie-cost-note" class="kie-cost-note">
+              Kie is billed once per selected plate when you press Send. Locks &amp; launches stay local/free.
+            </p>
+          </div>
+
+          <div id="aftermath-panel" class="aftermath-panel hidden">
+            <p class="field-label">Aftermath · before / after</p>
+            <p id="aftermath-panel-meta" class="draft-hint">AI Visual Effects ready.</p>
+            <div id="aftermath-slide-list" class="aftermath-slide-list" role="listbox" aria-label="Aftermath slides"></div>
+            <button id="retry-btn" type="button" class="btn-secondary btn-block">Back to Staging</button>
+            <button id="change-place-btn" type="button" class="btn-secondary btn-block">New Location</button>
+          </div>
+
+          <p class="disclaimer">
+            Fiction VFX only. Staging is free and local. Approve plates before any paid AI Visual Effects edit.
+          </p>
+        </div>
+      </aside>
+
+      <div id="unlock-toast" class="toast hidden" role="status"></div>
+
+      <!-- Full-bleed stage beside the docked side panel — before/after slides -->
+      <div id="win-screen" class="aftermath-stage hidden" aria-live="polite">
+        <div class="ba-stage-header">
+          <p class="field-label">AI Visual Effects · fiction VFX</p>
+          <p id="aftermath-caption" class="aftermath-caption">Before / after</p>
+        </div>
+
+        <div class="ba-compare" id="ba-compare">
+          <img id="aftermath-before-img" class="ba-img ba-img-before" alt="Before — locked plate" />
+          <div class="ba-after-clip" id="ba-after-clip">
+            <img id="aftermath-after-img" class="ba-img ba-img-after" alt="After — AI destruction plate" />
+          </div>
+          <div class="ba-divider" id="ba-divider" aria-hidden="true"></div>
+          <span class="ba-tag ba-tag-before">Before</span>
+          <span class="ba-tag ba-tag-after">After</span>
+          <input
+            id="ba-scrub"
+            class="ba-scrub"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            aria-label="Drag to compare before and after"
+          />
+        </div>
+
+        <div class="ba-nav">
+          <button id="ba-prev" type="button" class="ba-nav-btn" aria-label="Previous slide">‹</button>
+          <div id="aftermath-dots" class="ba-dots" role="tablist" aria-label="Aftermath slides"></div>
+          <button id="ba-next" type="button" class="ba-nav-btn" aria-label="Next slide">›</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Target map preview">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a3048"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g stroke="#3ec6ff" stroke-width="1" opacity="0.35">
+    <path d="M0 60 H640 M0 120 H640 M0 180 H640 M0 240 H640 M0 300 H640"/>
+    <path d="M80 0 V360 M160 0 V360 M240 0 V360 M320 0 V360 M400 0 V360 M480 0 V360 M560 0 V360"/>
+  </g>
+  <path d="M40 250 C120 230 200 270 320 240 C420 215 520 235 600 210" fill="none" stroke="#6a7a8a" stroke-width="18" stroke-linecap="round"/>
+  <path d="M40 250 C120 230 200 270 320 240 C420 215 520 235 600 210" fill="none" stroke="#ffe066" stroke-width="3" stroke-dasharray="10 14" opacity="0.7"/>
+  <circle cx="330" cy="235" r="28" fill="#ff3d5a" opacity="0.9"/>
+  <circle cx="330" cy="235" r="10" fill="#fff6eb"/>
+  <text x="330" y="290" text-anchor="middle" fill="#fff6eb" font-family="Nunito,sans-serif" font-size="18" font-weight="800">566 Middle Neck Rd</text>
+  <text x="330" y="314" text-anchor="middle" fill="#ffe066" font-family="Nunito,sans-serif" font-size="14" font-weight="700">Great Neck · Dunkin’</text>
+</svg>

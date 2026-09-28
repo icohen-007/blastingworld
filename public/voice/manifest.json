@@ -1,0 +1,33 @@
+{
+  "voice": "en-US-ChristopherNeural",
+  "lines": {
+    "Grid fixed. Lock aerial.": "/voice/9ba5380e87bb.mp3",
+    "Bad grid. Fix it.": "/voice/33c105b3917e.mp3",
+    "Aerial locked. Move to street. Lock it.": "/voice/6a8e3ecccb20.mp3",
+    "Aerial locked. Choose your weapon.": "/voice/4a0f2d393b6d.mp3",
+    "Aerial lock failed.": "/voice/438c2fabd99b.mp3",
+    "Aerial unlocked. Re-aim.": "/voice/2cf6b6664b34.mp3",
+    "Street locked. Choose your weapon.": "/voice/da9f8027331e.mp3",
+    "Street lock failed.": "/voice/046d52321b7e.mp3",
+    "Street unlocked. Re-aim.": "/voice/26399def0b0b.mp3",
+    "Bazooka ready. Double click to deploy.": "/voice/87bf816ccb7d.mp3",
+    "R P G 7 ready. Double click to deploy.": "/voice/1f2c4e0adbfe.mp3",
+    "A T 4 ready. Double click to deploy.": "/voice/4e6309fe8692.mp3",
+    "Javelin ready. Double click to deploy.": "/voice/76c0b838c7f4.mp3",
+    "Deploying.": "/voice/2a5e2fe2c55f.mp3",
+    "Impact. Select plates for A I.": "/voice/5ff751355a9b.mp3",
+    "Sending to A I.": "/voice/bb464ee00b5e.mp3",
+    "Sending 2 to A I.": "/voice/c0e67c991c6a.mp3",
+    "Sending 3 to A I.": "/voice/944003ba7dd1.mp3",
+    "Sending 4 to A I.": "/voice/8a01bf9edf63.mp3",
+    "Sending 5 to A I.": "/voice/49fcdb24ba49.mp3",
+    "Sending 6 to A I.": "/voice/4f0f85061bba.mp3",
+    "A I is down.": "/voice/d6e26253be4f.mp3",
+    "A I done. Aftermath up.": "/voice/a1080ec0190e.mp3",
+    "A I failed.": "/voice/81201c89c971.mp3",
+    "Street view.": "/voice/637b74afd015.mp3",
+    "Aerial view.": "/voice/3d2d6b58d376.mp3",
+    "Lock aerial first.": "/voice/4f7d554e92be.mp3",
+    "Descending to street view.": "/voice/2d27787d7da3.mp3"
+  }
+}
